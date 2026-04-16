@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vibe Coding with Cursor — Mover zRetreat</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue: #0041D9;
+  --blue-mid: #4d7bff;
+  --blue-light: #eef2ff;
+  --dark: #111116;
+  --gray: #666;
+  --gray-light: #f5f5f7;
+  --border: #e8e8e8;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  font-family: var(--font);
+  background: #1a1a1a;
+  overflow: hidden;
+}
+
+/* ── Deck ── */
+.deck {
+  width: 100vw; height: 100vh;
+  position: relative;
+}
+
+.slide {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: flex-start;
+  padding: 4.5rem 7rem;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+  background: #fff;
+}
+
+.slide.active { opacity: 1; pointer-events: all; }
+
+/* ── Cover ── */
+.slide-cover {
+  background: var(--dark);
+  justify-content: flex-end;
+  padding-bottom: 5rem;
+}
+
+.cover-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 1.25rem;
+  font-weight: 500;
+}
+
+.cover-title {
+  font-size: 5rem;
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: #fff;
+  max-width: 760px;
+}
+
+.cover-title em {
+  font-style: normal;
+  color: var(--blue-mid);
+}
+
+.cover-sub {
+  margin-top: 1.75rem;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.42);
+  letter-spacing: 0.01em;
+}
+
+.zillow-logo {
+  position: absolute;
+  top: 3.5rem; left: 7rem;
+  opacity: 0.9;
+}
+
+.cover-line {
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--blue);
+}
+
+/* ── Statement slide ── */
+.slide-statement { justify-content: center; }
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 700;
+  margin-bottom: 1.75rem;
+}
+
+.statement-heading {
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+  color: var(--dark);
+  max-width: 780px;
+}
+
+.statement-heading em {
+  font-style: normal;
+  color: var(--blue);
+}
+
+.statement-body {
+  margin-top: 1.75rem;
+  font-size: 1.15rem;
+  color: var(--gray);
+  max-width: 600px;
+  line-height: 1.65;
+}
+
+/* ── Vibe coding definition ── */
+.vibe-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 2rem;
+  max-width: 640px;
+}
+
+.vibe-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.vibe-step:last-child { border-bottom: none; }
+
+.vibe-num {
+  flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+
+.vibe-main {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark);
+  line-height: 1.4;
+}
+
+.vibe-sub {
+  font-size: 0.88rem;
+  color: var(--gray);
+  margin-top: 0.2rem;
+  line-height: 1.5;
+}
+
+/* ── Rules slide ── */
+.rules-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 820px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.rule-card {
+  background: var(--gray-light);
+  border-radius: 14px;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid var(--border);
+}
+
+.rule-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+.rule-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+
+.rule-body {
+  font-size: 0.9rem;
+  color: var(--gray);
+  line-height: 1.55;
+}
+
+/* ── The App slide ── */
+.app-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  width: 100%;
+  max-width: 860px;
+  align-items: center;
+}
+
+.app-screen {
+  background: var(--gray-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+}
+
+.app-screen-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 0.6rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-screen-dots {
+  display: flex; gap: 5px;
+}
+
+.dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+
+.dot-r { background: #ff5f57; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #28c840; }
+
+.mock-badge {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: #666;
+  border: 1px solid #ddd;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
+
+.app-screen-body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.fake-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+}
+
+.fake-img {
+  width: 100%; height: 60px;
+  background: #e0e0e0;
+  border-radius: 7px;
+  margin-bottom: 0.5rem;
+}
+
+.fake-price {
+  width: 60%; height: 10px;
+  background: var(--dark);
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.fake-addr {
+  width: 80%; height: 8px;
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* ── Stage slide ── */
+.slide-stage { justify-content: center; }
+
+.stage-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--blue);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.38rem 1rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+
+.stage-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+  margin-bottom: 1.75rem;
+  max-width: 700px;
+  line-height: 1.1;
+}
+
+.steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 660px;
+}
+
+.steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  font-size: 1.05rem;
+  color: #333;
+  line-height: 1.55;
+}
+
+.step-num {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--blue-light);
+  color: var(--blue);
+  font-size: 0.7rem;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 3px;
+}
+
+.steps li code {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  background: var(--gray-light);
+  padding: 0.1rem 0.45rem;
+  border-radius: 5px;
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+
+.notice-box {
+  margin-top: 1.75rem;
+  background: var(--blue-light);
+  border-left: 3px solid var(--blue);
+  padding: 0.9rem 1.2rem;
+  border-radius: 0 8px 8px 0;
+  font-size: 0.95rem;
+  color: #2a3a7a;
+  max-width: 660px;
+  line-height: 1.55;
+}
+
+.notice-box strong { color: var(--dark); }
+
+.prompt-block {
+  background: #1a1a2e;
+  color: #88d4a8;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  padding: 1.25rem 1.5rem 1.25rem 1.25rem;
+  border-radius: 10px;
+  max-width: 660px;
+  line-height: 1.65;
+  margin-top: 1.75rem;
+  position: relative;
+}
+
+.prompt-label {
+  position: absolute;
+  top: -0.65rem;
+  left: 1rem;
+  background: var(--blue);
+  color: #fff;
+  font-family: var(--font);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.65rem;
+  border-radius: 999px;
+}
+
+.filepath-pill {
+  display: inline-block;
+  background: var(--gray-light);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--dark);
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  margin-bottom: 1.25rem;
+}
+
+/* ── Teacher-led slide ── */
+.slide-teacher {
+  background: #f0f4ff;
+  justify-content: center;
+}
+
+.teacher-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--blue);
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.teacher-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.teacher-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--dark);
+  margin-bottom: 2rem;
+}
+
+.watch-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 640px;
+}
+
+.watch-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 1.1rem;
+  color: #2a2a4a;
+  line-height: 1.5;
+}
+
+.watch-arrow {
+  color: var(--blue);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Stage 7 options ── */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0.7rem;
+  max-width: 860px;
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.option-card {
+  background: var(--gray-light);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.option-card:hover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+
+.option-letter {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 0.45rem;
+}
+
+.option-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--dark);
+  line-height: 1.35;
+  margin-bottom: 0.35rem;
+}
+
+.option-desc {
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.45;
+}
+
+.stage7-prompt {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  color: var(--gray);
+  max-width: 860px;
+}
+
+.stage7-prompt code {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  background: var(--gray-light);
+  padding: 0.15rem 0.5rem;
+  border-radius: 5px;
+  color: var(--dark);
+  border: 1px solid var(--border);
+}
+
+/* ── Tips table ── */
+.tips-table {
+  width: 100%;
+  max-width: 820px;
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.tips-table th {
+  text-align: left;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray);
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.tips-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.tips-table td:first-child {
+  color: #999;
+  width: 35%;
+  font-size: 0.95rem;
+}
+
+.tips-table td:last-child {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--dark);
+}
+
+/* ── Share out ── */
+.share-title {
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  color: var(--dark);
+  max-width: 680px;
+  line-height: 1.05;
+  margin-bottom: 2.25rem;
+}
+
+.share-prompts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-width: 560px;
+}
+
+.share-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 1.1rem;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+.share-dash { color: var(--blue); font-weight: 700; flex-shrink: 0; }
+
+/* ── Closing ── */
+.slide-close {
+  background: var(--dark);
+  justify-content: center;
+}
+
+.close-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.close-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.38);
+  margin-bottom: 2.5rem;
+}
+
+.try-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 660px;
+}
+
+.try-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.55;
+}
+
+.try-num {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+
+/* ── Navigation ── */
+.nav {
+  position: fixed;
+  bottom: 1.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 200;
+}
+
+.nav-btn {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.1);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: #333;
+  transition: background 0.15s, transform 0.1s;
+  font-size: 0.9rem;
+}
+
+.nav-btn:hover { background: #fff; transform: scale(1.06); }
+.nav-btn:disabled { opacity: 0.3; cursor: default; transform: none; }
+
+.nav-counter {
+  font-size: 0.75rem;
+  color: rgba(0,0,0,0.35);
+  font-family: var(--mono);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  padding: 0.32rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.08);
+  min-width: 52px;
+  text-align: center;
+}
+
+/* Progress bar */
+.progress {
+  position: fixed;
+  bottom: 0; left: 0;
+  height: 3px;
+  background: var(--blue);
+  transition: width 0.35s ease;
+  z-index: 300;
+}
+
+/* Speaker notes */
+.notes-overlay {
+  position: fixed;
+  bottom: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 760px;
+  width: calc(100% - 4rem);
+  background: rgba(17,17,22,0.94);
+  color: rgba(255,255,255,0.82);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(16px);
+  z-index: 250;
+  display: none;
+}
+
+.notes-overlay.show { display: block; }
+
+.notes-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+/* Keyboard hint */
+.kb-hint {
+  position: fixed;
+  top: 1.5rem; right: 2rem;
+  font-size: 0.68rem;
+  color: rgba(0,0,0,0.2);
+  font-family: var(--mono);
+  z-index: 100;
+  line-height: 1.8;
+  text-align: right;
+}
+
+kbd {
+  display: inline-block;
+  background: rgba(0,0,0,0.06);
+  border-radius: 4px;
+  padding: 0.1rem 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+/* ── Copy buttons ── */
+.prompt-inline {
+  display: inline;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.45rem;
+  padding: 0.2rem 0.35rem;
+  background: rgba(0,65,217,0.08);
+  border: 1px solid rgba(0,65,217,0.2);
+  border-radius: 5px;
+  color: var(--blue);
+  cursor: pointer;
+  vertical-align: middle;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.copy-btn:hover {
+  background: rgba(0,65,217,0.15);
+  border-color: var(--blue);
+}
+
+.copy-btn.copied {
+  background: rgba(0,160,80,0.1);
+  border-color: rgba(0,160,80,0.4);
+  color: #0a7;
+}
+
+/* Copy btn inside dark prompt-block */
+.prompt-block .copy-btn {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+}
+
+.prompt-block .copy-btn:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.35);
+  color: #fff;
+}
+
+.prompt-block .copy-btn.copied {
+  background: rgba(0,200,100,0.15);
+  border-color: rgba(0,200,100,0.4);
+  color: #4dcc88;
+}
+
+/* ── Option card copy on hover ── */
+.option-card[data-prompt] {
+  position: relative;
+}
+
+.option-card[data-prompt] .option-copy-btn {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+  background: rgba(0,65,217,0.08);
+  border: 1px solid rgba(0,65,217,0.2);
+  border-radius: 5px;
+  color: var(--blue);
+  cursor: pointer;
+  padding: 0.2rem 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  font-family: var(--font);
+  letter-spacing: 0.04em;
+}
+
+.option-card[data-prompt]:hover .option-copy-btn {
+  opacity: 1;
+}
+
+.option-card[data-prompt]:hover {
+  border-color: var(--blue);
+  background: var(--blue-light);
+}
+
+.option-copy-btn.copied {
+  background: rgba(0,160,80,0.1);
+  border-color: rgba(0,160,80,0.4);
+  color: #0a7;
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- ── 1. COVER ── -->
+  <div class="slide slide-cover active" data-notes="Welcome everyone. This is meant to feel low-pressure — you're here to play, not become engineers. By the end, you'll have actually changed working code using plain English.">
+    <div class="cover-line"></div>
+    <svg class="zillow-logo" width="88" height="18" viewBox="0 0 100 21" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Zillow">
+      <path d="M47.965 20.6V1.8H51.754V20.6H47.965Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M24.447 20.6V18.46L33.274 6.113V5.858H24.6V2.44H38.954V4.58L30.279 16.928V17.183H39.209V20.6H24.447Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M54.498 1.8V20.6H58.287V1.8H54.498Z" fill="rgba(255,255,255,0.6)"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M59.986 14.069C59.986 9.867 62.87 7.144 67.237 7.144C71.604 7.144 74.489 9.867 74.49 14.069C74.49 18.295 71.579 20.995 67.238 20.995C62.897 20.995 59.986 18.272 59.986 14.07V14.069ZM70.684 14.069C70.684 11.904 69.253 10.377 67.237 10.377C65.221 10.377 63.764 11.905 63.764 14.07C63.764 16.235 65.195 17.787 67.238 17.787C69.281 17.787 70.685 16.234 70.685 14.07L70.684 14.069Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M74.488 7.536L78.416 20.6H83.36L85.323 11.951H85.578L87.567 20.6H92.488L96.439 7.535H92.691L90.092 16.901H89.837L87.338 7.536H83.564L81.245 16.902H80.99L78.339 7.536H74.488Z" fill="rgba(255,255,255,0.6)"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M41.294 3.821C41.294 2.685 42.14 1.842 43.329 1.842C44.518 1.842 45.365 2.684 45.365 3.821C45.365 4.959 44.518 5.8 43.329 5.8C42.14 5.8 41.294 4.98 41.293 3.821H41.294Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M41.428 7.522H45.23V20.6H41.428V7.522Z" fill="rgba(255,255,255,0.6)"/>
+      <path d="M13.714 6.039C13.549 5.813 13.264 5.708 12.991 5.768C11.43 6.121 5.686 7.674 0 10.408V7.827C0 7.409 0.191 7.015 0.519 6.755C2.871 4.897 8.708 0.294 8.708 0.294C9.206 -0.098 9.906 -0.098 10.404 0.294L18.41 6.62L18.579 6.755C18.906 7.015 19.096 7.413 19.096 7.828L19.094 7.826V10.995C16.552 11.347 11.276 12.601 8.981 13.451C8.96 13.459 8.937 13.454 8.968 13.419C10.258 11.941 12.501 9.917 14.571 8.396C14.886 8.165 14.954 7.724 14.722 7.409C14.527 7.144 14.291 6.823 14.076 6.531C13.943 6.35 13.817 6.179 13.714 6.039Z" fill="#4d7bff"/>
+      <path d="M4.569 17.837C4.768 18.073 5.093 18.151 5.377 18.032V18.035C9.036 16.501 16.309 14.699 19.095 14.306V19.235C19.095 19.989 18.482 20.6 17.727 20.6H1.368C0.611 20.6 0 19.989 0 19.234V13.124C2.08 12.104 7.503 10.094 9.373 9.589C9.41 9.58 9.419 9.602 9.386 9.624C7.86 10.639 4.541 14.23 3.43 15.513C3.209 15.769 3.201 16.147 3.412 16.414C3.743 16.828 4.235 17.442 4.569 17.837Z" fill="#4d7bff"/>
+    </svg>
+    <p class="cover-eyebrow">Mover Design — zRetreat Workshop</p>
+    <h1 class="cover-title">Vibe coding<br>with <em>Cursor</em></h1>
+    <p class="cover-sub">A hands-on workshop for the Mover design team</p>
+  </div>
+
+  <!-- ── 2. YOU ALREADY KNOW ── -->
+  <div class="slide slide-statement" data-notes="This is the core reframe. Designers think they can't code. But prompting is just describing what you want clearly — which designers do all day. The skill transfer is real.">
+    <p class="eyebrow">The reframe</p>
+    <h2 class="statement-heading">You already know<br>how to do <em>this.</em></h2>
+    <p class="statement-body">Every time you write a Figma annotation, leave a design review comment, or describe a change to an engineer — you are writing a prompt. Today we just point that skill at something new.</p>
+  </div>
+
+  <!-- ── 3. WHAT IS VIBE CODING ── -->
+  <div class="slide slide-statement" data-notes="Emphasize 'iterate.' The first result isn't always right — just like a first design isn't. The muscle to build is: describe clearly, evaluate the output, refine the ask. You don't need to understand every line.">
+    <p class="eyebrow">The loop</p>
+    <h2 class="statement-heading">What is<br>vibe coding?</h2>
+    <div class="vibe-flow">
+      <div class="vibe-step">
+        <div class="vibe-num">1</div>
+        <div>
+          <div class="vibe-main">Describe what you want</div>
+          <div class="vibe-sub">In plain English, like you're talking to a colleague</div>
+        </div>
+      </div>
+      <div class="vibe-step">
+        <div class="vibe-num">2</div>
+        <div>
+          <div class="vibe-main">AI writes the code</div>
+          <div class="vibe-sub">You don't need to understand every line</div>
+        </div>
+      </div>
+      <div class="vibe-step">
+        <div class="vibe-num">3</div>
+        <div>
+          <div class="vibe-main">Look at the result</div>
+          <div class="vibe-sub">Does it match what you had in mind?</div>
+        </div>
+      </div>
+      <div class="vibe-step">
+        <div class="vibe-num">4</div>
+        <div>
+          <div class="vibe-main">Iterate</div>
+          <div class="vibe-sub">Describe the gap. Refine. Repeat.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. GROUND RULES ── -->
+  <div class="slide" data-notes="The 'weird output is a prompt problem' rule is important — it removes shame from bad AI results. If Cursor gives you something off, the question is: how do I describe this more precisely? That's a design skill.">
+    <p class="eyebrow">Before we start</p>
+    <h2 class="statement-heading" style="font-size:2.4rem; margin-bottom:1.5rem;">Ground rules</h2>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-icon">🛟</div>
+        <div class="rule-title">Start with samples, end with real homes</div>
+        <div class="rule-body">We open on sample listings so you can experiment freely. By Step 4, your prototype will show real Zillow homes. Cmd+Z always works if you need it.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🧠</div>
+        <div class="rule-title">You don't have to understand the code</div>
+        <div class="rule-body">You need to know what you want to achieve. The AI handles the syntax.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">🎯</div>
+        <div class="rule-title">Weird output = prompt problem</div>
+        <div class="rule-body">Bad AI results aren't a you problem. They're a specificity problem. Be more precise.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-icon">📸</div>
+        <div class="rule-title">Share what you make</div>
+        <div class="rule-body">Good and broken. What didn't work is just as useful to talk about.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. THE APP ── -->
+  <div class="slide" data-notes="Do a quick live demo here — show the search, click a listing, go back. Point to the 'mock' badge. The point is just: it works, and we built something real to learn with.">
+    <div class="app-layout">
+      <div>
+        <p class="eyebrow">What we're working with</p>
+        <h2 class="statement-heading" style="font-size:2.6rem; margin-bottom:1rem; max-width:400px;">A working<br>property search app</h2>
+        <p class="statement-body" style="margin-top:0; font-size:1rem;">Opens on <strong>sample homes</strong> so you can learn the structure first. By Step 5, you'll flip one setting and your prototype will be running on <strong>real Zillow listings</strong>.</p>
+        <div style="margin-top:1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap;">
+          <span style="background:var(--gray-light); border:1px solid var(--border); border-radius:999px; font-size:0.82rem; padding:0.3rem 0.9rem; color:#444;">Search listings</span>
+          <span style="background:var(--gray-light); border:1px solid var(--border); border-radius:999px; font-size:0.82rem; padding:0.3rem 0.9rem; color:#444;">Open a detail page</span>
+          <span style="background:var(--gray-light); border:1px solid var(--border); border-radius:999px; font-size:0.82rem; padding:0.3rem 0.9rem; color:#444;">Edit the data</span>
+        </div>
+      </div>
+      <div class="app-screen">
+        <div class="app-screen-bar">
+          <div class="app-screen-dots">
+            <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+          </div>
+          <div class="mock-badge">mock</div>
+          <div style="width:24px"></div>
+        </div>
+        <div class="app-screen-body">
+          <div class="fake-card">
+            <div class="fake-img"></div>
+            <div class="fake-price"></div>
+            <div class="fake-addr"></div>
+          </div>
+          <div class="fake-card">
+            <div class="fake-img"></div>
+            <div class="fake-price" style="width:50%"></div>
+            <div class="fake-addr" style="width:70%"></div>
+          </div>
+          <div class="fake-card">
+            <div class="fake-img"></div>
+            <div class="fake-price" style="width:65%"></div>
+            <div class="fake-addr" style="width:85%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. STEP 1 ── -->
+  <div class="slide slide-stage" data-notes="Make sure everyone has the project open in Cursor before moving on. The most common issue is people opening just a single file instead of the whole folder — if the left panel doesn't show a file tree, they probably need to File → Open Folder and select the whole project folder.">
+    <div class="stage-badge">Step 1</div>
+    <h2 class="stage-title">Get set up</h2>
+    <ul class="steps">
+      <li><div class="step-num">1</div><span>Download the zip file that was shared with you and double-click it — a folder will appear</span></li>
+      <li><div class="step-num">2</div><span>Move that folder to wherever you keep your Cursor projects</span></li>
+      <li><div class="step-num">3</div><span>Open Cursor, then go to <strong>File → Open Folder</strong> and select the folder you just moved — a file tree will appear on the left side of your screen</span></li>
+    </ul>
+    <div class="notice-box">🎉 <strong>Voilà — you just loaded the Cursor project.</strong></div>
+  </div>
+
+  <!-- ── 7. STEP 2 ── -->
+  <div class="slide slide-stage" data-notes="Give them 3-4 minutes to just explore as users. Some will immediately poke at code — that's fine. The goal is to build intuition about what the app does before how it works. The vibe-coded approach here is the point: they ask Cursor how to start it, rather than following printed instructions.">
+    <div class="stage-badge">Step 2</div>
+    <h2 class="stage-title">Start the app</h2>
+    <ul class="steps">
+      <li><div class="step-num">1</div><span>Open Cursor Chat: <strong>Cmd+L</strong></span></li>
+      <li><div class="step-num">2</div><span>Ask: <em>"How do I start this app? Can you give me a link to view it?"</em> — Cursor will tell you exactly what to do</span></li>
+      <li><div class="step-num">3</div><span>Follow along. When Cursor responds with a URL in the chat, click it to open the app</span></li>
+      <li><div class="step-num">4</div><span>Use it like a real user — search for something, click a listing, browse around</span></li>
+    </ul>
+    <div class="notice-box"><strong>Look for:</strong> the small <code>mock</code> badge in the top-right of the header. That's your starting point — we'll switch it to <code>live</code> in Steps 4 and 5, and your prototype will show real Zillow homes.</div>
+  </div>
+
+  <!-- ── 8. STEP 3 ── -->
+  <div class="slide slide-stage" data-notes="Don't go deep here. The point is pattern recognition: good codebases have a clear place where big decisions live. Do a live demo of the prompt — show them that asking AI to explain code is a completely valid move.">
+    <div class="stage-badge">Step 3</div>
+    <h2 class="stage-title">The switchboard</h2>
+    <ul class="steps">
+      <li><div class="step-num">1</div><span>Open Cursor Chat (<strong>Cmd+L</strong>) and ask: <em>"Which file decides whether this app uses sample homes or real data? Explain it to me as a non-technical designer."</em></span></li>
+      <li><div class="step-num">2</div><span>Open the file Cursor points you to</span></li>
+      <li><div class="step-num">3</div><span>Read only the comment at the very top — that's the whole story</span></li>
+    </ul>
+    <div class="prompt-block">
+      <span class="prompt-label">Go deeper — Cursor Chat</span>
+      Explain this file to me like I'm a designer who doesn't write code. What would happen if someone flipped it to live?
+    </div>
+  </div>
+
+  <!-- ── 9. STEPS 4-5 ── -->
+  <div class="slide slide-stage" data-notes="Hand out the .env.local file before this slide. The most common issue is people forgetting to restart the app after dropping it in — if the badge still says mock, that's always why. Once it flips to live, give them a moment to just search and click around and feel the difference.">
+    <div class="stage-badge">Steps 4 &amp; 5</div>
+    <h2 class="stage-title">Connect to real homes</h2>
+    <ul class="steps">
+      <li><div class="step-num">1</div><span>Check Slack — a small settings file has been shared with you. Download it and drag it into the <strong>root of your project folder</strong> in Cursor's file panel</span></li>
+      <li><div class="step-num">2</div><span>Open Cursor Chat (<strong>Cmd+L</strong>) and ask: <em>"I've just added a .env.local file to my project. Stop the dev server and restart it for me so the new settings load."</em></span></li>
+      <li><div class="step-num">3</div><span>Follow the instructions — once the app restarts, the badge in the header will change from <code>mock</code> to <code>live</code></span></li>
+      <li><div class="step-num">4</div><span>Run a search. Click a listing. These are real Zillow homes.</span></li>
+    </ul>
+    <div class="notice-box">🏠 <strong>Your prototype is now running on live data.</strong> Real photos, real prices, real addresses.</div>
+  </div>
+
+  <!-- ── 10. STEP 6 ── -->
+  <div class="slide slide-stage" data-notes="Ask someone to pick a field and trace it out loud. Point to the optional stretch — adding a 'Year built' row — as a good first Cursor exercise before Step 7.">
+    <div class="stage-badge">Step 6</div>
+    <h2 class="stage-title">Trace a field</h2>
+    <ul class="steps">
+      <li><div class="step-num">1</div><span>In the app, click any listing to open the detail page</span></li>
+      <li><div class="step-num">2</div><span>Find the blue <strong>"Where each main field comes from"</strong> box</span></li>
+      <li><div class="step-num">3</div><span>Pick one row — "Price" is a good one</span></li>
+      <li><div class="step-num">4</div><span>Go back to Cursor and ask: <em>"Show me where the price value lives in the content file"</em> — then find it yourself</span></li>
+    </ul>
+    <div class="notice-box"><strong>Useful habit:</strong> you can always ask Cursor where something is coming from — to trace the source, troubleshoot something unexpected, or pinpoint exactly where to make a change.</div>
+  </div>
+
+  <!-- ── 11. STEP 7 ── -->
+  <div class="slide slide-stage" data-notes="Give them 15-20 minutes. Walk the room. The most common sticking point: people get a result they don't like and don't know how to iterate. Coach them to describe the gap specifically ('it made it bigger but I wanted bolder') rather than starting over.">
+    <div class="stage-badge">Step 7</div>
+    <h2 class="stage-title" style="margin-bottom:1rem;">Make it yours</h2>
+    <div class="options-grid">
+      <div class="option-card" data-prompt="In src/components/PropertyCard.tsx, make the cards feel more like a design-forward real estate site. Use a larger, bolder font for the price. Add more breathing room between the price and the stats line. Make the address text a bit lighter and smaller. Show me the specific changes to make.">
+        <div class="option-letter">Option A</div>
+        <div class="option-title">Editorial cards</div>
+        <div class="option-desc">Bigger price, more breathing room, lighter address text</div>
+      </div>
+      <div class="option-card" data-prompt="In src/App.tsx, add a short line of warm text just above the search results — something like &quot;You're browsing Seattle homes.&quot; Style it like a soft editorial subheading: not a label, more like a magazine intro line. Muted color, slightly italic, comfortable spacing.">
+        <div class="option-letter">Option B</div>
+        <div class="option-title">Welcome message</div>
+        <div class="option-desc">A warm editorial line above search results</div>
+      </div>
+      <div class="option-card" data-prompt="In src/components/PropertyCard.tsx, make the heart button save the listing's ID to localStorage so it stays filled in when you refresh the page. Use the listing's id field as the key. The heart should load its saved state when the component mounts.">
+        <div class="option-letter">Option C</div>
+        <div class="option-title">Save favorites</div>
+        <div class="option-desc">Heart button persists across page refreshes</div>
+      </div>
+      <div class="option-card" data-prompt="In src/App.tsx, when the app is loading search results, instead of the plain &quot;Searching…&quot; text, show three placeholder cards that look like the real cards but with gray blocks — a rectangle where the photo goes, a short bar for the price, a longer bar for the address. This pattern is called a skeleton loader.">
+        <div class="option-letter">Option D</div>
+        <div class="option-title">Skeleton loader</div>
+        <div class="option-desc">Gray placeholder cards instead of "Searching…"</div>
+      </div>
+      <div class="option-card" data-prompt="In src/App.tsx and src/components/PropertyCard.tsx, change the visual mood of the app to feel like a luxury real estate site. More whitespace, an elegant or serif-inspired font for the price, softer gray tones throughout. Only change colors, fonts, and spacing — don't touch any functionality.">
+        <div class="option-letter">Option E</div>
+        <div class="option-title">Change the mood</div>
+        <div class="option-desc">Luxury feel — more space, elegant type, softer grays</div>
+      </div>
+      <div class="option-card" style="background:#fff; border-style:dashed;">
+        <div class="option-letter" style="color:#999;">Your idea</div>
+        <div class="option-title" style="color:#999;">Describe something else</div>
+        <div class="option-desc">Open Cursor Chat and describe what you want</div>
+      </div>
+    </div>
+    <p class="stage7-prompt">Hover any option to copy its prompt — paste it straight into Cursor Chat (<code>Cmd+L</code>)</p>
+  </div>
+
+  <!-- ── 12. PROMPTING TIPS ── -->
+  <div class="slide" data-notes="If you have time, show a before/after of a vague vs. specific prompt. The contrast usually makes the point immediately.">
+    <p class="eyebrow">The craft</p>
+    <h2 class="statement-heading" style="font-size:2.4rem; margin-bottom:1.5rem;">More specific = better output</h2>
+    <table class="tips-table">
+      <thead>
+        <tr>
+          <th>Instead of…</th>
+          <th>Try…</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>"Make it look better"</td>
+          <td>"Make the price text larger and heavier, with more space below it"</td>
+        </tr>
+        <tr>
+          <td>"Fix this"</td>
+          <td>"This is showing an error: [describe it]. Fix it without changing anything else."</td>
+        </tr>
+        <tr>
+          <td>"Add a feature"</td>
+          <td>"Add [specific thing] to [specific file]. Don't touch anything else."</td>
+        </tr>
+        <tr>
+          <td>Getting lost in the code</td>
+          <td>"Explain [filename] like I'm a designer, not an engineer"</td>
+        </tr>
+        <tr>
+          <td>Something broke</td>
+          <td>"Revert the last change you made and let's try a different approach"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ── 13. SHARE OUT ── -->
+  <div class="slide" data-notes="Go around the room. Broken things are worth sharing too — 'I tried this and it didn't work' is a real learning moment. Even one person sharing a failure teaches the whole room something about prompting.">
+    <h2 class="share-title">Show us what<br>you made.</h2>
+    <div class="share-prompts">
+      <div class="share-item"><span class="share-dash">—</span><span>What did you build?</span></div>
+      <div class="share-item"><span class="share-dash">—</span><span>What prompt worked? What didn't?</span></div>
+      <div class="share-item"><span class="share-dash">—</span><span>Were you in mock or live mode?</span></div>
+      <div class="share-item"><span class="share-dash">—</span><span>What would you try next if you had 30 more minutes?</span></div>
+    </div>
+  </div>
+
+  <!-- ── 14. WHAT TO TRY NEXT ── -->
+  <div class="slide slide-close" data-notes="Send them off with energy, not homework. These are habits, not tasks. The calendar block one is the most important — if they don't protect the time, it won't happen.">
+    <h2 class="close-title">What to try next</h2>
+    <p class="close-sub">Three things to keep the momentum going</p>
+    <ul class="try-list">
+      <li>
+        <div class="try-num">1</div>
+        <span>Take a design you're working on and turn it into something real — even just one component</span>
+      </li>
+      <li>
+        <div class="try-num">2</div>
+        <span>Ask one of your engineers if they know of any data sources you could use in a prototype</span>
+      </li>
+      <li>
+        <div class="try-num">3</div>
+        <span>Block out Cursor time in your calendar — make it a weekly habit</span>
+      </li>
+    </ul>
+  </div>
+
+</div><!-- /deck -->
+
+<!-- Navigation -->
+<nav class="nav">
+  <button class="nav-btn" id="prev" aria-label="Previous slide">←</button>
+  <span class="nav-counter" id="counter">1 / 14</span>
+  <button class="nav-btn" id="next" aria-label="Next slide">→</button>
+</nav>
+
+<div class="progress" id="progress"></div>
+
+<div class="notes-overlay" id="notes">
+  <div class="notes-label">Speaker notes</div>
+  <div id="notes-text"></div>
+</div>
+
+<div class="kb-hint">
+  <kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;·&nbsp; <kbd>N</kbd> notes &nbsp;·&nbsp; <kbd>F</kbd> fullscreen
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length; // 15 slides
+  let current = 0;
+  let notesVisible = false;
+
+  const counter = document.getElementById('counter');
+  const progress = document.getElementById('progress');
+  const notesOverlay = document.getElementById('notes');
+  const notesText = document.getElementById('notes-text');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    current = Math.max(0, Math.min(total - 1, index));
+    slides[current].classList.add('active');
+    counter.textContent = `${current + 1} / ${total}`;
+    progress.style.width = `${((current + 1) / total) * 100}%`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    if (notesVisible) showNotes();
+  }
+
+  function showNotes() {
+    const note = slides[current].dataset.notes || '';
+    notesText.textContent = note;
+    notesOverlay.classList.add('show');
+  }
+
+  function toggleNotes() {
+    notesVisible = !notesVisible;
+    if (notesVisible) showNotes();
+    else notesOverlay.classList.remove('show');
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+    if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+    if (e.key === 'n' || e.key === 'N') toggleNotes();
+    if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  });
+
+  goTo(0);
+
+  // ── Copy buttons ──
+  // Auto-attach to every <em> prompt inside step lists and every .prompt-block
+  const copyIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+  const checkIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+  function makeCopyBtn(getText) {
+    const btn = document.createElement('button');
+    btn.className = 'copy-btn';
+    btn.innerHTML = copyIcon;
+    btn.title = 'Copy prompt';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigator.clipboard.writeText(getText()).then(() => {
+        btn.innerHTML = checkIcon;
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = copyIcon; btn.classList.remove('copied'); }, 1800);
+      });
+    });
+    return btn;
+  }
+
+  // Wire up <em> prompts inside step list items
+  document.querySelectorAll('.steps li em').forEach(em => {
+    const text = em.textContent.replace(/^[""]|[""]$/g, '').trim();
+    const wrap = document.createElement('span');
+    wrap.className = 'prompt-inline';
+    em.parentNode.insertBefore(wrap, em);
+    wrap.appendChild(em);
+    wrap.appendChild(makeCopyBtn(() => text));
+  });
+
+  // Wire up option cards on Step 7
+  document.querySelectorAll('.option-card[data-prompt]').forEach(card => {
+    const prompt = card.dataset.prompt;
+    const btn = document.createElement('button');
+    btn.className = 'option-copy-btn';
+    btn.innerHTML = `${copyIcon} <span>Copy prompt</span>`;
+    btn.title = 'Copy prompt to clipboard';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      navigator.clipboard.writeText(prompt).then(() => {
+        btn.innerHTML = `${checkIcon} <span>Copied!</span>`;
+        btn.classList.add('copied');
+        setTimeout(() => { btn.innerHTML = `${copyIcon} <span>Copy prompt</span>`; btn.classList.remove('copied'); }, 1800);
+      });
+    });
+    card.appendChild(btn);
+  });
+
+  // Wire up .prompt-block elements
+  document.querySelectorAll('.prompt-block').forEach(block => {
+    const label = block.querySelector('.prompt-label');
+    const rawText = Array.from(block.childNodes)
+      .filter(n => n.nodeType === Node.TEXT_NODE)
+      .map(n => n.textContent.trim())
+      .join(' ')
+      .trim();
+    const btn = makeCopyBtn(() => rawText);
+    btn.style.position = 'absolute';
+    btn.style.top = '1rem';
+    btn.style.right = '1rem';
+    block.style.position = 'relative';
+    block.appendChild(btn);
+  });
+</script>
+</body>
+</html>

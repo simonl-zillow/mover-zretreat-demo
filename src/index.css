@@ -1,0 +1,68 @@
+:root {
+  --miami-coral: #E8725C;
+  --miami-coral-soft: #FFF0EC;
+  --miami-coral-hover: #D4604E;
+  --miami-teal: #2A9D8F;
+  --miami-teal-soft: #E6F5F2;
+  --miami-teal-deep: #1A6B5F;
+  --miami-gold: #D4A853;
+  --miami-gold-soft: #FDF6E8;
+  --miami-sand: #FBF8F4;
+  --miami-sand-dark: #F3EDE5;
+  --miami-ink: #2C2420;
+  --miami-ink-secondary: #6B5E54;
+  --miami-border: #E8DFD6;
+  --miami-shadow-warm: rgba(180, 120, 80, 0.08);
+  --miami-shadow-warm-lg: rgba(180, 120, 80, 0.14);
+
+  --font-display: 'Anton', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--miami-ink);
+  background: var(--miami-sand);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+@keyframes fadeInPill {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInHoverCard {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}

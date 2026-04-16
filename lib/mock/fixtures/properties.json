@@ -1,0 +1,242 @@
+[
+  {
+    "zpid": 92000001,
+    "address": {
+      "streetAddress": "2100 Brickell Ave",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33129"
+    },
+    "location": { "latitude": 25.7615, "longitude": -80.1925 },
+    "price": { "value": 645000, "pricePerSquareFoot": 522 },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "livingArea": 1235,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 632000 },
+    "yearBuilt": 2016,
+    "daysOnZillow": 21,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "High-rise condo in the heart of Brickell. Resort-style pool deck, floor-to-ceiling glass, Metromover steps away. HOA covers valet, gym, and concierge."
+  },
+  {
+    "zpid": 92000002,
+    "address": {
+      "streetAddress": "451 Coral Way",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33134"
+    },
+    "location": { "latitude": 25.7489, "longitude": -80.2612 },
+    "price": { "value": 899000, "pricePerSquareFoot": 401 },
+    "bedrooms": 3,
+    "bathrooms": 2.5,
+    "livingArea": 2240,
+    "propertyType": "townhome",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 875000 },
+    "yearBuilt": 2011,
+    "daysOnZillow": 8,
+    "lotSizeWithUnit": { "lotSize": 2800 },
+    "description": "Coral Way townhome with private courtyard and two-car garage. Tree-lined street, bilingual neighborhood, walkable to cafes and bakeries."
+  },
+  {
+    "zpid": 92000003,
+    "address": {
+      "streetAddress": "1901 Collins Ave #812",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33139"
+    },
+    "location": { "latitude": 25.7928, "longitude": -80.1300 },
+    "price": { "value": 1125000, "pricePerSquareFoot": 780 },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "livingArea": 1442,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 1090000 },
+    "yearBuilt": 2004,
+    "daysOnZillow": 5,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "South Beach oceanfront condo on Collins Ave. Direct beach access, Art Deco lobby, balcony facing the Atlantic. Walking distance to Lincoln Road."
+  },
+  {
+    "zpid": 92000004,
+    "address": {
+      "streetAddress": "3420 SW 22nd Ter",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33145"
+    },
+    "location": { "latitude": 25.7455, "longitude": -80.2385 },
+    "price": { "value": 515000, "pricePerSquareFoot": 368 },
+    "bedrooms": 3,
+    "bathrooms": 2,
+    "livingArea": 1400,
+    "propertyType": "singleFamily",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 498000 },
+    "yearBuilt": 1955,
+    "daysOnZillow": 27,
+    "lotSizeWithUnit": { "lotSize": 5500 },
+    "description": "Classic Shenandoah bungalow with terrazzo floors and jalousie windows. Large backyard with mature mango tree. Needs cosmetic updates — priced to sell."
+  },
+  {
+    "zpid": 92000005,
+    "address": {
+      "streetAddress": "7600 Red Rd #410",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33143"
+    },
+    "location": { "latitude": 25.7050, "longitude": -80.2640 },
+    "price": { "value": 425000, "pricePerSquareFoot": 420 },
+    "bedrooms": 2,
+    "bathrooms": 1,
+    "livingArea": 1012,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 415000 },
+    "yearBuilt": 1972,
+    "daysOnZillow": 42,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "South Miami starter condo near UM campus. Updated kitchen, community pool, covered parking. Metrorail one block away."
+  },
+  {
+    "zpid": 92000006,
+    "address": {
+      "streetAddress": "150 SE 25th Rd",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33129"
+    },
+    "location": { "latitude": 25.7550, "longitude": -80.1890 },
+    "price": { "value": 985000, "pricePerSquareFoot": 595 },
+    "bedrooms": 3,
+    "bathrooms": 3,
+    "livingArea": 1655,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 965000 },
+    "yearBuilt": 2020,
+    "daysOnZillow": 9,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "Luxury condo in The Roads neighborhood. Italian porcelain floors, smart home system, bay views from wraparound terrace. Full-service building with marina access."
+  },
+  {
+    "zpid": 92000007,
+    "address": {
+      "streetAddress": "2835 NE 2nd Ave",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33137"
+    },
+    "location": { "latitude": 25.8095, "longitude": -80.1918 },
+    "price": { "value": 725000, "pricePerSquareFoot": 504 },
+    "bedrooms": 2,
+    "bathrooms": 2,
+    "livingArea": 1438,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 710000 },
+    "yearBuilt": 2018,
+    "daysOnZillow": 14,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "Wynwood loft-style condo with 12-foot ceilings, polished concrete floors, and gallery wall. Rooftop pool overlooking the Arts District. Pet-friendly."
+  },
+  {
+    "zpid": 92000008,
+    "address": {
+      "streetAddress": "4000 Rickenbacker Cswy",
+      "city": "Miami",
+      "state": "FL",
+      "zipcode": "33149"
+    },
+    "location": { "latitude": 25.7340, "longitude": -80.1650 },
+    "price": { "value": 1850000, "pricePerSquareFoot": 925 },
+    "bedrooms": 4,
+    "bathrooms": 3.5,
+    "livingArea": 2000,
+    "propertyType": "condo",
+    "media": {
+      "propertyPhotoLinks": {
+        "defaultLink": "/mock/home-thumb.svg",
+        "mediumSizeLink": "/mock/home-thumb.svg",
+        "highResolutionLink": "/mock/home-thumb.svg",
+        "highResLink": "/mock/home-thumb.svg"
+      },
+      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+    },
+    "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
+    "estimates": { "zestimate": 1800000 },
+    "yearBuilt": 2022,
+    "daysOnZillow": 3,
+    "lotSizeWithUnit": { "lotSize": 0 },
+    "description": "Key Biscayne penthouse with panoramic bay and ocean views. Private elevator entry, chef's kitchen, hurricane-impact glass throughout. Island living minutes from downtown."
+  }
+]
