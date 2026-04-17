@@ -15,12 +15,14 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 632000 },
@@ -45,12 +47,14 @@
     "propertyType": "townhome",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 875000 },
@@ -75,12 +79,14 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1615571022219-eb45cf7faa36?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 1090000 },
@@ -105,12 +111,14 @@
     "propertyType": "singleFamily",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1449844908441-8829872d2607?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 498000 },
@@ -135,12 +143,13 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1574362848149-11496d93a7c7?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 415000 },
@@ -165,12 +174,14 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 965000 },
@@ -195,12 +206,14 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600585154363-67eb9e2e2099?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600573472591-ee6b68d14c68?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1560184897-ae75f418493e?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 710000 },
@@ -225,12 +238,14 @@
     "propertyType": "condo",
     "media": {
       "propertyPhotoLinks": {
-        "defaultLink": "/mock/home-thumb.svg",
-        "mediumSizeLink": "/mock/home-thumb.svg",
-        "highResolutionLink": "/mock/home-thumb.svg",
-        "highResLink": "/mock/home-thumb.svg"
+        "defaultLink": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop",
+        "mediumSizeLink": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop"
       },
-      "photos": [{ "mediumSizeLink": "/mock/home-thumb.svg", "url": "/mock/home-thumb.svg" }]
+      "photos": [
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop" },
+        { "mediumSizeLink": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop" }
+      ]
     },
     "listing": { "listingStatus": "FOR_SALE", "marketingStatus": "Active" },
     "estimates": { "zestimate": 1800000 },
